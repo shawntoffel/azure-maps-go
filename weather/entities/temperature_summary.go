@@ -1,7 +1,7 @@
 package entities
 
 type TemeratureSummary struct {
-	Past12Hours PastHours `json:"past12Hours,omitempty"`
-	Past24Hours PastHours `json:"past24Hours,omitempty"`
-	Past6Hours  PastHours `json:"past6Hours,omitempty"`
+	Past12Hours WeatherUnitRange `json:"past12Hours,omitempty"`
+	Past24Hours WeatherUnitRange `json:"past24Hours,omitempty"`
+	Past6Hours  WeatherUnitRange `json:"past6Hours,omitempty"`
 }

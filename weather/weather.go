@@ -49,6 +49,21 @@ func (w Weather) CurrentConditions(query string, opts *CurrentConditionsRequestO
 	return currentConditionsResponse, nil
 }
 
+func (w Weather) DailyForecast(query string, opts *DailyForecastRequestOptions) (*DailyForecastResponse, error) {
+	dailyForecastResponse := &DailyForecastResponse{}
+	err := w.doRequest(
+		DailyForecastEndpoint,
+		query,
+		opts,
+		dailyForecastResponse,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return dailyForecastResponse, nil
+}
+
 func (w Weather) buildBaseUrl(endpoint string, query string) string {
 	return w.BaseUrl + endpoint + "/json?query=" + query + "&" + w.defaultParams
 }
