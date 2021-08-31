@@ -4,16 +4,28 @@ import "testing"
 
 func TestGetCurrentConditions(t *testing.T) {
 	t.Skip()
-	w := NewWeather()
+	w := NewWeather("")
 
-	req := CurrentConditionsRequest{
-		ApiVersion:      "1.0",
-		Query:           "38.9575574,-104.5017414",
-		Unit:            "imperial",
-		SubscriptionKey: "",
+	opts := &CurrentConditionsRequestOptions{
+		Unit: "imperial",
 	}
 
-	resp, err := w.CurrentConditions(req)
+	resp, err := w.CurrentConditions("38.9575574,-104.5017414", opts)
+	if err != nil {
+		t.Error(err)
+	}
+
+	t.Logf("%+v", resp)
+}
+
+func TestGetCurrentConditions2(t *testing.T) {
+	w := NewWeather("")
+
+	opts := &CurrentConditionsRequestOptions{
+		Unit: "imperial",
+	}
+
+	resp, err := w.CurrentConditions("invalid-coords-test", opts)
 	if err != nil {
 		t.Error(err)
 	}

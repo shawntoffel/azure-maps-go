@@ -1,29 +1,30 @@
 package weather
 
-import "net/url"
+import (
+	"net/url"
+	"strconv"
+)
 
-type CurrentConditionsRequest struct {
-	ApiVersion      string `json:"apiVersion,omitempty"`
-	Query           string `json:"query,omitempty"`
-	Details         string `json:"details,omitempty"`
-	Duration        int    `json:"duration,omitempty"`
-	Language        string `json:"language,omitempty"`
-	SubscriptionKey string `json:"subscriptionKey,omitempty"`
-	Unit            string `json:"unit,omitempty"`
+type CurrentConditionsRequestOptions struct {
+	Details  string `json:"details,omitempty"`
+	Duration *int   `json:"duration,omitempty"`
+	Language string `json:"language,omitempty"`
+	Unit     string `json:"unit,omitempty"`
 }
 
-func (ccr CurrentConditionsRequest) Encode() string {
+func (ccr CurrentConditionsRequestOptions) Encode() string {
 	q := url.Values{}
-	if ccr.ApiVersion != "" {
-		q.Add("api-version", ccr.ApiVersion)
+
+	if ccr.Details != "" {
+		q.Add("details", ccr.Details)
 	}
 
-	if ccr.Query != "" {
-		q.Add("query", ccr.Query)
+	if ccr.Duration != nil {
+		q.Add("duration", strconv.Itoa(*ccr.Duration))
 	}
 
-	if ccr.SubscriptionKey != "" {
-		q.Add("subscription-key", ccr.SubscriptionKey)
+	if ccr.Language != "" {
+		q.Add("language", ccr.Language)
 	}
 
 	if ccr.Unit != "" {

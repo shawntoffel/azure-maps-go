@@ -1,12 +1,12 @@
 package weather
 
 var (
-	CurrentConditions   = "/currentConditions"
-	DailyForecast       = "/forecast/daily"
-	DailyIndicies       = "/indices/daily"
-	HourlyForecast      = "/forecast/hourly"
-	MinuteForecast      = "/forecast/minute"
-	QuarterDayForecast  = "/forecast/quarterDay"
-	SevereWeatherAlerts = "/severe/alerts"
-	WeatherAlongRoute   = "/route"
+	CurrentConditionsEndpoint   = "/currentConditions"
+	DailyForecastEndpoint       = "/forecast/daily"
+	DailyIndiciesEndpoint       = "/indices/daily"
+	HourlyForecastEndpoint      = "/forecast/hourly"
+	MinuteForecastEndpoint      = "/forecast/minute"
+	QuarterDayForecastEndpoint  = "/forecast/quarterDay"
+	SevereWeatherAlertsEndpoint = "/severe/alerts"
+	WeatherAlongRouteEndpoint   = "/route"
 )
