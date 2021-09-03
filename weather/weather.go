@@ -139,6 +139,21 @@ func (w Weather) SevereWeatherAlerts(query string, opts *SevereWeatherAlertsRequ
 	return resp, nil
 }
 
+func (w Weather) WeatherAlongRoute(query string, opts *WeatherAlongRouteRequestOptions) (*WeatherAlongRouteResponse, error) {
+	resp := &WeatherAlongRouteResponse{}
+	err := w.doRequest(
+		WeatherAlongRouteEndpoint,
+		query,
+		opts,
+		resp,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
 func (w Weather) buildBaseUrl(endpoint string, query string) string {
 	return w.BaseUrl + endpoint + "/json?query=" + query + "&" + w.defaultParams
 }

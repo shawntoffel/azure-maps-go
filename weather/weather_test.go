@@ -130,6 +130,20 @@ func TestGetSevereWeatherAlerts(t *testing.T) {
 	t.Logf("%+v", resp)
 }
 
+func TestGetWeatherAlongRoute(t *testing.T) {
+	t.Skip()
+	w := NewWeather(subscriptionKey)
+
+	opts := &WeatherAlongRouteRequestOptions{}
+
+	resp, err := w.WeatherAlongRoute("38.9575574,-104.5017414,0:39.18722,-106.81835,10", opts)
+	if err != nil {
+		t.Error(err)
+	}
+
+	t.Logf("%+v", resp)
+}
+
 func ptr(i int) *int {
 	return &i
 }
