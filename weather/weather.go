@@ -109,6 +109,21 @@ func (w Weather) MinuteForecast(query string, opts *MinuteForecastRequestOptions
 	return resp, nil
 }
 
+func (w Weather) QuarterDayForecast(query string, opts *QuarterDayForecastRequestOptions) (*QuarterDayForecastResponse, error) {
+	resp := &QuarterDayForecastResponse{}
+	err := w.doRequest(
+		QuarterDayForecastEndpoint,
+		query,
+		opts,
+		resp,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
 func (w Weather) buildBaseUrl(endpoint string, query string) string {
 	return w.BaseUrl + endpoint + "/json?query=" + query + "&" + w.defaultParams
 }
