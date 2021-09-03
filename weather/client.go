@@ -11,7 +11,7 @@ import (
 const DefaultBaseUrl = "https://atlas.microsoft.com/weather"
 const DefaultApiVersion = "1.0"
 
-type Weather struct {
+type WeatherClient struct {
 	BaseUrl         string
 	ApiVersion      string
 	client          *http.Client
@@ -19,13 +19,13 @@ type Weather struct {
 	defaultParams   string
 }
 
-func NewWeather(subscriptionKey string) Weather {
+func NewWeatherClient(subscriptionKey string) WeatherClient {
 	r := Request{
 		ApiVersion:      DefaultApiVersion,
 		SubscriptionKey: subscriptionKey,
 	}
 
-	return Weather{
+	return WeatherClient{
 		BaseUrl:         DefaultBaseUrl,
 		ApiVersion:      DefaultApiVersion,
 		client:          &http.Client{},
@@ -34,7 +34,7 @@ func NewWeather(subscriptionKey string) Weather {
 	}
 }
 
-func (w Weather) CurrentConditions(query string, opts *CurrentConditionsRequestOptions) (*CurrentConditionsResponse, error) {
+func (w WeatherClient) CurrentConditions(query string, opts *CurrentConditionsRequestOptions) (*CurrentConditionsResponse, error) {
 	resp := &CurrentConditionsResponse{}
 	err := w.doRequest(
 		CurrentConditionsEndpoint,
@@ -49,7 +49,7 @@ func (w Weather) CurrentConditions(query string, opts *CurrentConditionsRequestO
 	return resp, nil
 }
 
-func (w Weather) DailyForecast(query string, opts *DailyForecastRequestOptions) (*DailyForecastResponse, error) {
+func (w WeatherClient) DailyForecast(query string, opts *DailyForecastRequestOptions) (*DailyForecastResponse, error) {
 	resp := &DailyForecastResponse{}
 	err := w.doRequest(
 		DailyForecastEndpoint,
@@ -64,7 +64,7 @@ func (w Weather) DailyForecast(query string, opts *DailyForecastRequestOptions) 
 	return resp, nil
 }
 
-func (w Weather) DailyIndicies(query string, opts *DailyIndicesRequestOptions) (*DailyIndiciesResponse, error) {
+func (w WeatherClient) DailyIndicies(query string, opts *DailyIndicesRequestOptions) (*DailyIndiciesResponse, error) {
 	resp := &DailyIndiciesResponse{}
 	err := w.doRequest(
 		DailyIndiciesEndpoint,
@@ -79,7 +79,7 @@ func (w Weather) DailyIndicies(query string, opts *DailyIndicesRequestOptions) (
 	return resp, nil
 }
 
-func (w Weather) HourlyForecast(query string, opts *HourlyForecastRequestOptions) (*HourlyForecastResponse, error) {
+func (w WeatherClient) HourlyForecast(query string, opts *HourlyForecastRequestOptions) (*HourlyForecastResponse, error) {
 	resp := &HourlyForecastResponse{}
 	err := w.doRequest(
 		HourlyForecastEndpoint,
@@ -94,7 +94,7 @@ func (w Weather) HourlyForecast(query string, opts *HourlyForecastRequestOptions
 	return resp, nil
 }
 
-func (w Weather) MinuteForecast(query string, opts *MinuteForecastRequestOptions) (*MinuteForecastResponse, error) {
+func (w WeatherClient) MinuteForecast(query string, opts *MinuteForecastRequestOptions) (*MinuteForecastResponse, error) {
 	resp := &MinuteForecastResponse{}
 	err := w.doRequest(
 		MinuteForecastEndpoint,
@@ -109,7 +109,7 @@ func (w Weather) MinuteForecast(query string, opts *MinuteForecastRequestOptions
 	return resp, nil
 }
 
-func (w Weather) QuarterDayForecast(query string, opts *QuarterDayForecastRequestOptions) (*QuarterDayForecastResponse, error) {
+func (w WeatherClient) QuarterDayForecast(query string, opts *QuarterDayForecastRequestOptions) (*QuarterDayForecastResponse, error) {
 	resp := &QuarterDayForecastResponse{}
 	err := w.doRequest(
 		QuarterDayForecastEndpoint,
@@ -124,7 +124,7 @@ func (w Weather) QuarterDayForecast(query string, opts *QuarterDayForecastReques
 	return resp, nil
 }
 
-func (w Weather) SevereWeatherAlerts(query string, opts *SevereWeatherAlertsRequestOptions) (*SevereWeatherAlertsResponse, error) {
+func (w WeatherClient) SevereWeatherAlerts(query string, opts *SevereWeatherAlertsRequestOptions) (*SevereWeatherAlertsResponse, error) {
 	resp := &SevereWeatherAlertsResponse{}
 	err := w.doRequest(
 		SevereWeatherAlertsEndpoint,
@@ -139,7 +139,7 @@ func (w Weather) SevereWeatherAlerts(query string, opts *SevereWeatherAlertsRequ
 	return resp, nil
 }
 
-func (w Weather) WeatherAlongRoute(query string, opts *WeatherAlongRouteRequestOptions) (*WeatherAlongRouteResponse, error) {
+func (w WeatherClient) WeatherAlongRoute(query string, opts *WeatherAlongRouteRequestOptions) (*WeatherAlongRouteResponse, error) {
 	resp := &WeatherAlongRouteResponse{}
 	err := w.doRequest(
 		WeatherAlongRouteEndpoint,
@@ -154,11 +154,11 @@ func (w Weather) WeatherAlongRoute(query string, opts *WeatherAlongRouteRequestO
 	return resp, nil
 }
 
-func (w Weather) buildBaseUrl(endpoint string, query string) string {
+func (w WeatherClient) buildBaseUrl(endpoint string, query string) string {
 	return w.BaseUrl + endpoint + "/json?query=" + query + "&" + w.defaultParams
 }
 
-func (w Weather) doRequest(endpoint string, query string, opts Encodable, resp interface{}) error {
+func (w WeatherClient) doRequest(endpoint string, query string, opts Encodable, resp interface{}) error {
 	url := w.buildBaseUrl(endpoint, query)
 	if opts != nil {
 		url += "&" + opts.Encode()

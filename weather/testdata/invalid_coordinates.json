@@ -1,0 +1,6 @@
+{
+    "error": {
+        "code": "400 BadRequest",
+        "message": "The provided coordinates in query are invalid, out of range, or not in the expected format"
+    }
+}
