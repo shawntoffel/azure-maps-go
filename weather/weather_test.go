@@ -103,11 +103,26 @@ func TestGetMinuteForecast(t *testing.T) {
 }
 
 func TestGetQuarterDayForecast(t *testing.T) {
+	t.Skip()
 	w := NewWeather(subscriptionKey)
 
 	opts := &QuarterDayForecastRequestOptions{}
 
 	resp, err := w.QuarterDayForecast("38.9575574,-104.5017414", opts)
+	if err != nil {
+		t.Error(err)
+	}
+
+	t.Logf("%+v", resp)
+}
+
+func TestGetSevereWeatherAlerts(t *testing.T) {
+	t.Skip()
+	w := NewWeather(subscriptionKey)
+
+	opts := &SevereWeatherAlertsRequestOptions{}
+
+	resp, err := w.SevereWeatherAlerts("39.18722,-106.81835", opts)
 	if err != nil {
 		t.Error(err)
 	}
