@@ -71,6 +71,7 @@ func TestGetDailyIndicies(t *testing.T) {
 	t.Logf("%+v", resp)
 }
 func TestGetHourlyForecast(t *testing.T) {
+	t.Skip()
 	w := NewWeather(subscriptionKey)
 
 	opts := &HourlyForecastRequestOptions{
@@ -78,6 +79,21 @@ func TestGetHourlyForecast(t *testing.T) {
 	}
 
 	resp, err := w.HourlyForecast("38.9575574,-104.5017414", opts)
+	if err != nil {
+		t.Error(err)
+	}
+
+	t.Logf("%+v", resp)
+}
+
+func TestGetMinuteForecast(t *testing.T) {
+	w := NewWeather(subscriptionKey)
+
+	opts := &MinuteForecastRequestOptions{
+		Interval: ptr(1),
+	}
+
+	resp, err := w.MinuteForecast("38.9575574,-104.5017414", opts)
 	if err != nil {
 		t.Error(err)
 	}

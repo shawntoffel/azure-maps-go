@@ -35,63 +35,78 @@ func NewWeather(subscriptionKey string) Weather {
 }
 
 func (w Weather) CurrentConditions(query string, opts *CurrentConditionsRequestOptions) (*CurrentConditionsResponse, error) {
-	currentConditionsResponse := &CurrentConditionsResponse{}
+	resp := &CurrentConditionsResponse{}
 	err := w.doRequest(
 		CurrentConditionsEndpoint,
 		query,
 		opts,
-		currentConditionsResponse,
+		resp,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return currentConditionsResponse, nil
+	return resp, nil
 }
 
 func (w Weather) DailyForecast(query string, opts *DailyForecastRequestOptions) (*DailyForecastResponse, error) {
-	dailyForecastResponse := &DailyForecastResponse{}
+	resp := &DailyForecastResponse{}
 	err := w.doRequest(
 		DailyForecastEndpoint,
 		query,
 		opts,
-		dailyForecastResponse,
+		resp,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return dailyForecastResponse, nil
+	return resp, nil
 }
 
 func (w Weather) DailyIndicies(query string, opts *DailyIndicesRequestOptions) (*DailyIndiciesResponse, error) {
-	dailyIndiciesResponse := &DailyIndiciesResponse{}
+	resp := &DailyIndiciesResponse{}
 	err := w.doRequest(
 		DailyIndiciesEndpoint,
 		query,
 		opts,
-		dailyIndiciesResponse,
+		resp,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return dailyIndiciesResponse, nil
+	return resp, nil
 }
 
 func (w Weather) HourlyForecast(query string, opts *HourlyForecastRequestOptions) (*HourlyForecastResponse, error) {
-	hourlyForecastResponse := &HourlyForecastResponse{}
+	resp := &HourlyForecastResponse{}
 	err := w.doRequest(
 		HourlyForecastEndpoint,
 		query,
 		opts,
-		hourlyForecastResponse,
+		resp,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return hourlyForecastResponse, nil
+	return resp, nil
+}
+
+func (w Weather) MinuteForecast(query string, opts *MinuteForecastRequestOptions) (*MinuteForecastResponse, error) {
+	resp := &MinuteForecastResponse{}
+	err := w.doRequest(
+		MinuteForecastEndpoint,
+		query,
+		opts,
+		resp,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }
 
 func (w Weather) buildBaseUrl(endpoint string, query string) string {
