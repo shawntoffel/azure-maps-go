@@ -79,6 +79,21 @@ func (w Weather) DailyIndicies(query string, opts *DailyIndicesRequestOptions) (
 	return dailyIndiciesResponse, nil
 }
 
+func (w Weather) HourlyForecast(query string, opts *HourlyForecastRequestOptions) (*HourlyForecastResponse, error) {
+	hourlyForecastResponse := &HourlyForecastResponse{}
+	err := w.doRequest(
+		HourlyForecastEndpoint,
+		query,
+		opts,
+		hourlyForecastResponse,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return hourlyForecastResponse, nil
+}
+
 func (w Weather) buildBaseUrl(endpoint string, query string) string {
 	return w.BaseUrl + endpoint + "/json?query=" + query + "&" + w.defaultParams
 }
