@@ -1,15 +1,25 @@
 package weather
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 )
 
+const TestDataPath = "testdata"
+
 func TestParseCurrentConditionsResponse(t *testing.T) {
-	w, srv := setupClient("current_conditions.json", http.StatusOK)
+	respData, err := loadFileData("current_conditions.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.CurrentConditions("", &CurrentConditionsRequestOptions{})
@@ -17,17 +27,16 @@ func TestParseCurrentConditionsResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	want := 1
-	have := len(resp.Results)
-	if want != have {
-		t.Errorf("want %d, have %d", want, have)
-	}
-
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 
 func TestParseErrorResponse(t *testing.T) {
-	w, srv := setupClient("invalid_coordinates.json", http.StatusBadRequest)
+	respData, err := loadFileData("invalid_coordinates.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusBadRequest)
 	defer srv.Close()
 
 	resp, err := w.CurrentConditions("", &CurrentConditionsRequestOptions{})
@@ -39,7 +48,12 @@ func TestParseErrorResponse(t *testing.T) {
 }
 
 func TestParseDailyForecastResponse(t *testing.T) {
-	w, srv := setupClient("daily_forecast.json", http.StatusOK)
+	respData, err := loadFileData("daily_forecast.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.DailyForecast("", &DailyForecastRequestOptions{})
@@ -47,17 +61,16 @@ func TestParseDailyForecastResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	want := 1
-	have := len(resp.Forecasts)
-	if want != have {
-		t.Errorf("want %d, have %d", want, have)
-	}
-
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 
 func TestParseDailyIndiciesResponse(t *testing.T) {
-	w, srv := setupClient("daily_indicies.json", http.StatusOK)
+	respData, err := loadFileData("daily_indicies.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.DailyIndicies("", &DailyIndicesRequestOptions{})
@@ -65,16 +78,15 @@ func TestParseDailyIndiciesResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	want := 19
-	have := len(resp.Results)
-	if want != have {
-		t.Errorf("want %d, have %d", want, have)
-	}
-
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 func TestParseHourlyForecastResponse(t *testing.T) {
-	w, srv := setupClient("hourly_forecast.json", http.StatusOK)
+	respData, err := loadFileData("hourly_forecast.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.HourlyForecast("", &HourlyForecastRequestOptions{})
@@ -82,11 +94,16 @@ func TestParseHourlyForecastResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 
 func TestParseMinuteForecastResponse(t *testing.T) {
-	w, srv := setupClient("minute_forecast.json", http.StatusOK)
+	respData, err := loadFileData("minute_forecast.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.MinuteForecast("", &MinuteForecastRequestOptions{})
@@ -94,11 +111,16 @@ func TestParseMinuteForecastResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 
 func TestParseQuarterDayForecastResponse(t *testing.T) {
-	w, srv := setupClient("quarter_day_forecast.json", http.StatusOK)
+	respData, err := loadFileData("quarter_day_forecast.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.QuarterDayForecast("", &QuarterDayForecastRequestOptions{})
@@ -106,11 +128,16 @@ func TestParseQuarterDayForecastResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 
 func TestParseSevereWeatherAlertsResponse(t *testing.T) {
-	w, srv := setupClient("severe_weather_alerts.json", http.StatusOK)
+	respData, err := loadFileData("severe_weather_alerts.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.SevereWeatherAlerts("", &SevereWeatherAlertsRequestOptions{})
@@ -118,11 +145,16 @@ func TestParseSevereWeatherAlertsResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 
 func TestParseWeatherAlongRouteResponse(t *testing.T) {
-	w, srv := setupClient("weather_along_route.json", http.StatusOK)
+	respData, err := loadFileData("weather_along_route.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	w, srv := setupClient(respData, http.StatusOK)
 	defer srv.Close()
 
 	resp, err := w.WeatherAlongRoute("", &WeatherAlongRouteRequestOptions{})
@@ -130,11 +162,15 @@ func TestParseWeatherAlongRouteResponse(t *testing.T) {
 		t.Error(err)
 	}
 
-	t.Logf("%+v", resp)
+	assertEqual(t, resp, respData)
 }
 
-func setupClient(filename string, responseCode int) (WeatherClient, *httptest.Server) {
-	server := getMockServerWithFileData(filename, responseCode)
+func loadFileData(filename string) ([]byte, error) {
+	return ioutil.ReadFile(TestDataPath + "/" + filename)
+}
+
+func setupClient(respData []byte, responseCode int) (WeatherClient, *httptest.Server) {
+	server := getMockServer(respData, responseCode)
 
 	w := NewWeatherClient("")
 	w.BaseUrl = server.URL
@@ -142,16 +178,10 @@ func setupClient(filename string, responseCode int) (WeatherClient, *httptest.Se
 	return w, server
 }
 
-func getMockServerWithFileData(filename string, responseCode int) *httptest.Server {
-	bytes, _ := ioutil.ReadFile("testdata/" + filename)
-
-	return getMockServer(string(bytes), responseCode)
-}
-
-func getMockServer(data string, responseCode int) *httptest.Server {
+func getMockServer(data []byte, responseCode int) *httptest.Server {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(responseCode)
-		fmt.Fprintln(w, data)
+		fmt.Fprintln(w, string(data))
 	}))
 
 	return server
@@ -159,4 +189,40 @@ func getMockServer(data string, responseCode int) *httptest.Server {
 
 func intToPtr(i int) *int {
 	return &i
+}
+
+func assertEqual(t *testing.T, resp interface{}, expected []byte) {
+	data, err := json.Marshal(resp)
+	if err != nil {
+		t.Error(err)
+	}
+
+	buffer := bytes.Buffer{}
+	err = json.Compact(&buffer, expected)
+	if err != nil {
+		t.Error(err)
+	}
+	compactExpected := buffer.Bytes()
+
+	equal, err := areEqual(data, compactExpected)
+	if !equal {
+		t.Errorf("reserialized json did not match expected. \nhave: %s\n\nwant: %s", string(data), string(compactExpected))
+	}
+}
+
+func areEqual(a, b []byte) (bool, error) {
+	var aValue interface{}
+	var bValue interface{}
+
+	err := json.Unmarshal(a, &aValue)
+	if err != nil {
+		return false, err
+	}
+
+	err = json.Unmarshal(b, &bValue)
+	if err != nil {
+		return false, err
+	}
+
+	return reflect.DeepEqual(aValue, bValue), nil
 }

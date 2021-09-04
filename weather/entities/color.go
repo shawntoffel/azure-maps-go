@@ -1,8 +1,8 @@
 package entities
 
 type Color struct {
-	Blue  int    `json:"blue,omitempty"`
-	Green int    `json:"green,omitempty"`
-	Red   int    `json:"red,omitempty"`
+	Blue  int    `json:"blue"`
+	Green int    `json:"green"`
+	Red   int    `json:"red"`
 	Hex   string `json:"hex,omitempty"`
 }
