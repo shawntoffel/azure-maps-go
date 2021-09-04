@@ -1,35 +1,27 @@
 package weather
 
-import (
-	"net/url"
-	"strconv"
-)
-
 type DailyIndicesRequestOptions struct {
-	Duration     *int   `json:"duration,omitempty"`
-	IndexGroupId *int   `json:"indexGroupId,omitempty"`
-	IndexId      *int   `json:"indexId,omitempty"`
-	Language     string `json:"language,omitempty"`
+	Format          string
+	ApiVersion      string
+	Details         string
+	Duration        *int
+	IndexGroupId    *int
+	IndexId         *int
+	Language        string
+	SubscriptionKey string
+	MSClientId      string
 }
 
-func (ccr DailyIndicesRequestOptions) Encode() string {
-	q := url.Values{}
-
-	if ccr.Duration != nil {
-		q.Add("duration", strconv.Itoa(*ccr.Duration))
+func (o DailyIndicesRequestOptions) Options() Options {
+	return Options{
+		Format:          o.Format,
+		ApiVersion:      o.ApiVersion,
+		Details:         o.Details,
+		Duration:        o.Duration,
+		IndexGroupId:    o.IndexGroupId,
+		IndexId:         o.IndexId,
+		Language:        o.Language,
+		SubscriptionKey: o.SubscriptionKey,
+		MSClientId:      o.MSClientId,
 	}
-
-	if ccr.IndexGroupId != nil {
-		q.Add("indexGroupId", strconv.Itoa(*ccr.IndexGroupId))
-	}
-
-	if ccr.IndexId != nil {
-		q.Add("indexId", strconv.Itoa(*ccr.IndexId))
-	}
-
-	if ccr.Language != "" {
-		q.Add("language", ccr.Language)
-	}
-
-	return q.Encode()
 }

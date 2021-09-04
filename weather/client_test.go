@@ -171,7 +171,7 @@ func loadFileData(filename string) ([]byte, error) {
 func setupClient(respData []byte, responseCode int) (WeatherClient, *httptest.Server) {
 	server := getMockServer(respData, responseCode)
 
-	w := NewWeatherClient("")
+	w := New("")
 	w.BaseUrl = server.URL
 
 	return w, server

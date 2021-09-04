@@ -1,19 +1,19 @@
 package weather
 
-import (
-	"net/url"
-)
-
 type WeatherAlongRouteRequestOptions struct {
-	Language string `json:"language,omitempty"`
+	Format          string
+	ApiVersion      string
+	Language        string
+	SubscriptionKey string
+	MSClientId      string
 }
 
-func (ccr WeatherAlongRouteRequestOptions) Encode() string {
-	q := url.Values{}
-
-	if ccr.Language != "" {
-		q.Add("language", ccr.Language)
+func (o WeatherAlongRouteRequestOptions) Options() Options {
+	return Options{
+		Format:          o.Format,
+		ApiVersion:      o.ApiVersion,
+		Language:        o.Language,
+		SubscriptionKey: o.SubscriptionKey,
+		MSClientId:      o.MSClientId,
 	}
-
-	return q.Encode()
 }

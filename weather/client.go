@@ -9,28 +9,23 @@ import (
 )
 
 const DefaultBaseUrl = "https://atlas.microsoft.com/weather"
-const DefaultApiVersion = "1.0"
 
 type WeatherClient struct {
 	BaseUrl         string
-	ApiVersion      string
+	MSClientId      string
 	client          *http.Client
 	subscriptionKey string
-	defaultParams   string
 }
 
-func NewWeatherClient(subscriptionKey string) WeatherClient {
-	r := Request{
-		ApiVersion:      DefaultApiVersion,
-		SubscriptionKey: subscriptionKey,
-	}
+func New(subscriptionKey string) WeatherClient {
+	return NewWithClient(subscriptionKey, &http.Client{})
+}
 
+func NewWithClient(subscriptionKey string, client *http.Client) WeatherClient {
 	return WeatherClient{
 		BaseUrl:         DefaultBaseUrl,
-		ApiVersion:      DefaultApiVersion,
-		client:          &http.Client{},
+		client:          client,
 		subscriptionKey: subscriptionKey,
-		defaultParams:   r.Encode(),
 	}
 }
 
@@ -130,30 +125,46 @@ func (w WeatherClient) WeatherAlongRoute(query string, opts *WeatherAlongRouteRe
 	return &resp, err
 }
 
-func (w WeatherClient) buildBaseUrl(endpoint string, query string) string {
-	return w.BaseUrl + endpoint + "/json?query=" + query + "&" + w.defaultParams
-}
+func (w WeatherClient) buildHttpRequest(endpoint string, query string, op Optionable) (*http.Request, error) {
+	options := InitializeOptions(op, w.subscriptionKey, w.MSClientId)
 
-func (w WeatherClient) doRequest(endpoint string, query string, opts Encodable, resp interface{}) error {
-	url := w.buildBaseUrl(endpoint, query)
-	if opts != nil {
-		url += "&" + opts.Encode()
+	uri := w.BaseUrl + endpoint + "/" + options.Format + "?" + options.Encode(query)
+
+	req, err := http.NewRequest(http.MethodGet, uri, nil)
+	if err != nil {
+		return nil, err
 	}
 
-	httpResp, err := w.client.Get(url)
+	if options.MSClientId != "" {
+		req.Header.Set("x-ms-client-id", options.MSClientId)
+	}
+
+	return req, nil
+}
+
+func (w WeatherClient) doRequest(endpoint string, query string, op Optionable, resp interface{}) error {
+	req, err := w.buildHttpRequest(endpoint, query, op)
+	if err != nil {
+		return err
+	}
+
+	httpResp, err := w.client.Do(req)
 	if err != nil {
 		return err
 	}
 
 	if isErrorResponse(httpResp) {
-		errResp := &ODataErrorResponse{}
-		err = decodeJson(httpResp.Body, errResp)
+		errResp := ODataErrorResponse{}
+
+		err = decodeJson(httpResp.Body, &errResp)
 		if err != nil {
 			return err
 		}
 
-		return errResp.Error
-	} else if httpResp.StatusCode != http.StatusOK {
+		return &errResp.Error
+	}
+
+	if httpResp.StatusCode != http.StatusOK {
 		return fmt.Errorf("code: %s", httpResp.Status)
 	}
 

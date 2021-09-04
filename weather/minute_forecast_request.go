@@ -1,25 +1,21 @@
 package weather
 
-import (
-	"net/url"
-	"strconv"
-)
-
 type MinuteForecastRequestOptions struct {
-	Interval *int   `json:"duration,omitempty"`
-	Language string `json:"language,omitempty"`
+	Format          string
+	ApiVersion      string
+	Interval        *int
+	Language        string
+	SubscriptionKey string
+	MSClientId      string
 }
 
-func (ccr MinuteForecastRequestOptions) Encode() string {
-	q := url.Values{}
-
-	if ccr.Interval != nil {
-		q.Add("interval", strconv.Itoa(*ccr.Interval))
+func (o MinuteForecastRequestOptions) Options() Options {
+	return Options{
+		Format:          o.Format,
+		ApiVersion:      o.ApiVersion,
+		Interval:        o.Interval,
+		Language:        o.Language,
+		SubscriptionKey: o.SubscriptionKey,
+		MSClientId:      o.MSClientId,
 	}
-
-	if ccr.Language != "" {
-		q.Add("language", ccr.Language)
-	}
-
-	return q.Encode()
 }

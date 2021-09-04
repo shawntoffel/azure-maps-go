@@ -1,24 +1,21 @@
 package weather
 
-import (
-	"net/url"
-)
-
 type SevereWeatherAlertsRequestOptions struct {
-	Details  string `json:"details,omitempty"`
-	Language string `json:"language,omitempty"`
+	Format          string
+	ApiVersion      string
+	Details         string
+	Language        string
+	SubscriptionKey string
+	MSClientId      string
 }
 
-func (ccr SevereWeatherAlertsRequestOptions) Encode() string {
-	q := url.Values{}
-
-	if ccr.Details != "" {
-		q.Add("details", ccr.Details)
+func (o SevereWeatherAlertsRequestOptions) Options() Options {
+	return Options{
+		Format:          o.Format,
+		ApiVersion:      o.ApiVersion,
+		Details:         o.Details,
+		Language:        o.Language,
+		SubscriptionKey: o.SubscriptionKey,
+		MSClientId:      o.MSClientId,
 	}
-
-	if ccr.Language != "" {
-		q.Add("language", ccr.Language)
-	}
-
-	return q.Encode()
 }

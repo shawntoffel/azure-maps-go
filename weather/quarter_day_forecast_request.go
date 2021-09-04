@@ -1,30 +1,23 @@
 package weather
 
-import (
-	"net/url"
-	"strconv"
-)
-
 type QuarterDayForecastRequestOptions struct {
-	Duration *int   `json:"duration,omitempty"`
-	Language string `json:"language,omitempty"`
-	Unit     string `json:"unit,omitempty"`
+	Format          string
+	ApiVersion      string
+	Duration        *int
+	Language        string
+	SubscriptionKey string
+	Unit            string
+	MSClientId      string
 }
 
-func (ccr QuarterDayForecastRequestOptions) Encode() string {
-	q := url.Values{}
-
-	if ccr.Duration != nil {
-		q.Add("duration", strconv.Itoa(*ccr.Duration))
+func (o QuarterDayForecastRequestOptions) Options() Options {
+	return Options{
+		Format:          o.Format,
+		ApiVersion:      o.ApiVersion,
+		Duration:        o.Duration,
+		Language:        o.Language,
+		SubscriptionKey: o.SubscriptionKey,
+		Unit:            o.Unit,
+		MSClientId:      o.MSClientId,
 	}
-
-	if ccr.Language != "" {
-		q.Add("language", ccr.Language)
-	}
-
-	if ccr.Unit != "" {
-		q.Add("unit", ccr.Unit)
-	}
-
-	return q.Encode()
 }
