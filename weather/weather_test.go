@@ -168,7 +168,7 @@ func loadFileData(filename string) ([]byte, error) {
 	return ioutil.ReadFile(TestDataPath + "/" + filename)
 }
 
-func setupClient(respData []byte, responseCode int) (WeatherClient, *httptest.Server) {
+func setupClient(respData []byte, responseCode int) (Weather, *httptest.Server) {
 	server := getMockServer(respData, responseCode)
 
 	w := New("")
