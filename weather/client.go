@@ -35,123 +35,99 @@ func NewWeatherClient(subscriptionKey string) WeatherClient {
 }
 
 func (w WeatherClient) CurrentConditions(query string, opts *CurrentConditionsRequestOptions) (*CurrentConditionsResponse, error) {
-	resp := &CurrentConditionsResponse{}
+	resp := CurrentConditionsResponse{}
 	err := w.doRequest(
 		CurrentConditionsEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) DailyForecast(query string, opts *DailyForecastRequestOptions) (*DailyForecastResponse, error) {
-	resp := &DailyForecastResponse{}
+	resp := DailyForecastResponse{}
 	err := w.doRequest(
 		DailyForecastEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) DailyIndicies(query string, opts *DailyIndicesRequestOptions) (*DailyIndiciesResponse, error) {
-	resp := &DailyIndiciesResponse{}
+	resp := DailyIndiciesResponse{}
 	err := w.doRequest(
 		DailyIndiciesEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) HourlyForecast(query string, opts *HourlyForecastRequestOptions) (*HourlyForecastResponse, error) {
-	resp := &HourlyForecastResponse{}
+	resp := HourlyForecastResponse{}
 	err := w.doRequest(
 		HourlyForecastEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) MinuteForecast(query string, opts *MinuteForecastRequestOptions) (*MinuteForecastResponse, error) {
-	resp := &MinuteForecastResponse{}
+	resp := MinuteForecastResponse{}
 	err := w.doRequest(
 		MinuteForecastEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) QuarterDayForecast(query string, opts *QuarterDayForecastRequestOptions) (*QuarterDayForecastResponse, error) {
-	resp := &QuarterDayForecastResponse{}
+	resp := QuarterDayForecastResponse{}
 	err := w.doRequest(
 		QuarterDayForecastEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) SevereWeatherAlerts(query string, opts *SevereWeatherAlertsRequestOptions) (*SevereWeatherAlertsResponse, error) {
-	resp := &SevereWeatherAlertsResponse{}
+	resp := SevereWeatherAlertsResponse{}
 	err := w.doRequest(
 		SevereWeatherAlertsEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) WeatherAlongRoute(query string, opts *WeatherAlongRouteRequestOptions) (*WeatherAlongRouteResponse, error) {
-	resp := &WeatherAlongRouteResponse{}
+	resp := WeatherAlongRouteResponse{}
 	err := w.doRequest(
 		WeatherAlongRouteEndpoint,
 		query,
 		opts,
-		resp,
+		&resp,
 	)
-	if err != nil {
-		return nil, err
-	}
 
-	return resp, nil
+	return &resp, err
 }
 
 func (w WeatherClient) buildBaseUrl(endpoint string, query string) string {
