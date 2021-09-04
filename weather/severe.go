@@ -1,5 +1,7 @@
 package weather
 
+import "github.com/shawntoffel/azure-maps-go/weather/entities"
+
 type SevereWeatherAlertsRequestOptions struct {
 	Format          string
 	ApiVersion      string
@@ -18,4 +20,8 @@ func (o SevereWeatherAlertsRequestOptions) Options() Options {
 		SubscriptionKey: o.SubscriptionKey,
 		MSClientId:      o.MSClientId,
 	}
+}
+
+type SevereWeatherAlertsResponse struct {
+	Results []entities.SevereWeatherAlert `json:"results,omitempty"`
 }

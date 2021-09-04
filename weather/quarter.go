@@ -1,5 +1,7 @@
 package weather
 
+import "github.com/shawntoffel/azure-maps-go/weather/entities"
+
 type QuarterDayForecastRequestOptions struct {
 	Format          string
 	ApiVersion      string
@@ -20,4 +22,8 @@ func (o QuarterDayForecastRequestOptions) Options() Options {
 		Unit:            o.Unit,
 		MSClientId:      o.MSClientId,
 	}
+}
+
+type QuarterDayForecastResponse struct {
+	Forecasts []entities.QuarterDayForecast `json:"forecasts,omitempty"`
 }

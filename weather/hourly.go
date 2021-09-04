@@ -1,27 +1,29 @@
 package weather
 
-type DailyIndicesRequestOptions struct {
+import "github.com/shawntoffel/azure-maps-go/weather/entities"
+
+type HourlyForecastRequestOptions struct {
 	Format          string
 	ApiVersion      string
-	Details         string
 	Duration        *int
-	IndexGroupId    *int
-	IndexId         *int
 	Language        string
 	SubscriptionKey string
+	Unit            string
 	MSClientId      string
 }
 
-func (o DailyIndicesRequestOptions) Options() Options {
+func (o HourlyForecastRequestOptions) Options() Options {
 	return Options{
 		Format:          o.Format,
 		ApiVersion:      o.ApiVersion,
-		Details:         o.Details,
 		Duration:        o.Duration,
-		IndexGroupId:    o.IndexGroupId,
-		IndexId:         o.IndexId,
 		Language:        o.Language,
 		SubscriptionKey: o.SubscriptionKey,
+		Unit:            o.Unit,
 		MSClientId:      o.MSClientId,
 	}
+}
+
+type HourlyForecastResponse struct {
+	Forecasts []entities.HourlyForecast `json:"forecasts,omitempty"`
 }

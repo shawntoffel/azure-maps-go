@@ -1,5 +1,7 @@
 package weather
 
+import "github.com/shawntoffel/azure-maps-go/weather/entities"
+
 type MinuteForecastRequestOptions struct {
 	Format          string
 	ApiVersion      string
@@ -18,4 +20,10 @@ func (o MinuteForecastRequestOptions) Options() Options {
 		SubscriptionKey: o.SubscriptionKey,
 		MSClientId:      o.MSClientId,
 	}
+}
+
+type MinuteForecastResponse struct {
+	IntervalSummaries []entities.IntervalSummary     `json:"intervalSummaries,omitempty"`
+	Intervals         []entities.Interval            `json:"intervals,omitempty"`
+	Summary           entities.MinuteForecastSummary `json:"summary,omitempty"`
 }

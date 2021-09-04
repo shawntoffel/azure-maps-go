@@ -1,5 +1,7 @@
 package weather
 
+import "github.com/shawntoffel/azure-maps-go/weather/entities"
+
 type CurrentConditionsRequestOptions struct {
 	Format          string
 	ApiVersion      string
@@ -22,4 +24,8 @@ func (o CurrentConditionsRequestOptions) Options() Options {
 		Unit:            o.Unit,
 		MSClientId:      o.MSClientId,
 	}
+}
+
+type CurrentConditionsResponse struct {
+	Results []entities.CurrentConditions `json:"results,omitempty"`
 }
