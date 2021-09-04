@@ -42,9 +42,8 @@ func TestParseErrorResponse(t *testing.T) {
 	resp, err := w.CurrentConditions("", &CurrentConditionsRequestOptions{})
 	if err == nil {
 		t.Errorf("expected error response, but was nil")
+		t.Errorf("resp content: %+v", resp)
 	}
-
-	t.Logf("%+v", resp)
 }
 
 func TestParseDailyForecastResponse(t *testing.T) {
