@@ -18,10 +18,10 @@ type Weather struct {
 }
 
 func New(subscriptionKey string) Weather {
-	return NewWithClient(subscriptionKey, &http.Client{})
+	return NewWithHttpClient(subscriptionKey, &http.Client{})
 }
 
-func NewWithClient(subscriptionKey string, client *http.Client) Weather {
+func NewWithHttpClient(subscriptionKey string, client *http.Client) Weather {
 	return Weather{
 		BaseUrl:         DefaultBaseUrl,
 		client:          client,
