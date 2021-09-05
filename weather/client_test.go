@@ -164,6 +164,37 @@ func TestParseWeatherAlongRouteResponse(t *testing.T) {
 	assertEqual(t, resp, respData)
 }
 
+func TestBuildHttpRequest(t *testing.T) {
+	w := New("key")
+	w.MSClientId = "test"
+
+	op := CurrentConditionsRequestOptions{
+		Format:     "json",
+		ApiVersion: "1.0",
+		Duration:   intToPtr(2),
+		Unit:       "imperial",
+	}
+
+	httpReq, err := w.buildHttpRequest(CurrentConditionsEndpoint, "test", op)
+	if err != nil {
+		t.Error(err)
+	}
+
+	urlHave := httpReq.URL.String()
+	urlWant := w.BaseUrl + "/currentConditions/json?api-version=1.0&duration=2&query=test&subscription-key=key&unit=imperial"
+
+	if urlHave != urlWant {
+		t.Errorf("url mismatch, have: %s, want: %s", urlHave, urlWant)
+	}
+
+	headerHave := httpReq.Header.Get("x-ms-client-id")
+	headerWant := "test"
+
+	if headerHave != headerWant {
+		t.Errorf("header mismatch, have: %s, want: %s", headerHave, headerWant)
+	}
+}
+
 func loadFileData(filename string) ([]byte, error) {
 	return ioutil.ReadFile(TestDataPath + "/" + filename)
 }
