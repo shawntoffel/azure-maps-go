@@ -28,3 +28,25 @@ const (
 	Integer                      UnitType = 22
 	MicrogramsPerCubicMeterOfAir UnitType = 31
 )
+
+type LatestStatusKeyword string
+
+const (
+	Cancel   LatestStatusKeyword = "Cancel"
+	Continue LatestStatusKeyword = "Continue"
+	Correct  LatestStatusKeyword = "Correct"
+	Expire   LatestStatusKeyword = "Expire"
+	Extend   LatestStatusKeyword = "Extend"
+	New      LatestStatusKeyword = "New"
+	Update   LatestStatusKeyword = "Update"
+	Upgrade  LatestStatusKeyword = "Upgrade"
+)
+
+type Quarter int
+
+const (
+	Morning   Quarter = 0
+	Afternoon Quarter = 1
+	Evening   Quarter = 2
+	Overnight Quarter = 3
+)
