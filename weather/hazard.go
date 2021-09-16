@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type Hazards struct {
 	HazardDetails  []HazardDetail `json:"hazardDetails,omitempty"`

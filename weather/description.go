@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type Description struct {
 	English   string `json:"english,omitempty"`

@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type Notification struct {
 	HazardCode  string `json:"hazardCode,omitempty"`

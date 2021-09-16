@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type AlertArea struct {
 	AlertDetails             string        `json:"alertDetails,omitempty"`

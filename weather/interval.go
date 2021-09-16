@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type Interval struct {
 	CloudCover        int     `json:"cloudCover"`

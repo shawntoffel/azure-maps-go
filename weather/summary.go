@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type DailyForecastSummary struct {
 	Category  string `json:"category,omitempty"`

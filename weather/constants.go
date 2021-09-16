@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type UnitType int
 
@@ -32,14 +32,14 @@ const (
 type LatestStatusKeyword string
 
 const (
-	Cancel   LatestStatusKeyword = "Cancel"
-	Continue LatestStatusKeyword = "Continue"
-	Correct  LatestStatusKeyword = "Correct"
-	Expire   LatestStatusKeyword = "Expire"
-	Extend   LatestStatusKeyword = "Extend"
-	New      LatestStatusKeyword = "New"
-	Update   LatestStatusKeyword = "Update"
-	Upgrade  LatestStatusKeyword = "Upgrade"
+	StatusCancel   LatestStatusKeyword = "Cancel"
+	StatusContinue LatestStatusKeyword = "Continue"
+	StatusCorrect  LatestStatusKeyword = "Correct"
+	StatusExpire   LatestStatusKeyword = "Expire"
+	StatusExtend   LatestStatusKeyword = "Extend"
+	StatusNew      LatestStatusKeyword = "New"
+	StatusUpdate   LatestStatusKeyword = "Update"
+	StatusUpgrade  LatestStatusKeyword = "Upgrade"
 )
 
 type Quarter int

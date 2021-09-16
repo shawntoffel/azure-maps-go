@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type LatestStatus struct {
 	English   LatestStatusKeyword `json:"english,omitempty"`

@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type LocalSource struct {
 	ID          int    `json:"id"`

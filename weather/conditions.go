@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type CurrentConditions struct {
 	ApparentTemperature            *WeatherUnit          `json:"apparentTemperature"`

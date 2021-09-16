@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type SunGlare struct {
 	CalculatedVehicleHeading int `json:"calculatedVehicleHeading"`

@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type Waypoint struct {
 	CloudCover     int                             `json:"cloudCover"`

@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type WeatherAlongRoutePrecipitation struct {
 	Dbz  float64 `json:"dbz"`

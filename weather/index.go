@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type DailyIndex struct {
 	Ascending     bool    `json:"ascending"`

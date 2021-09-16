@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type Color struct {
 	Blue  int    `json:"blue"`

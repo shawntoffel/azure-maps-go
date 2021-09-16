@@ -1,4 +1,4 @@
-package entities
+package weather
 
 type Wind struct {
 	Direction *WindDirection `json:"direction,omitempty"`
