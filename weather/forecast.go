@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type DailyForecast struct {
 	AirAndPollen             []AirAndPollen    `json:"airAndPollen,omitempty"`

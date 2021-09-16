@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type DailyIndex struct {
 	Ascending     bool    `json:"ascending"`

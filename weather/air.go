@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type AirAndPollen struct {
 	Category      string `json:"category,omitempty"`

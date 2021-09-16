@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type Color struct {
 	Blue  int    `json:"blue"`

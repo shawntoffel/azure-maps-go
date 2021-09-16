@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type LocalSource struct {
 	ID          int    `json:"id"`

@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type MinuteForecastRequestOptions struct {
 	Format          string

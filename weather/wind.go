@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type Wind struct {
 	Direction *WindDirection `json:"direction,omitempty"`

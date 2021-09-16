@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type DayOrNight struct {
 	CloudCover               int          `json:"cloudCover"`

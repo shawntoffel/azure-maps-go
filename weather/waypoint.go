@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type Waypoint struct {
 	CloudCover     int                             `json:"cloudCover"`

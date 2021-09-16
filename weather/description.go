@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type Description struct {
 	English   string `json:"english,omitempty"`

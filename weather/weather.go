@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type WeatherAlongRoutePrecipitation struct {
 	Dbz  float64 `json:"dbz"`

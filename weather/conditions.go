@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type CurrentConditions struct {
 	ApparentTemperature            *WeatherUnit          `json:"apparentTemperature"`

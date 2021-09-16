@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type Notification struct {
 	HazardCode  string `json:"hazardCode,omitempty"`

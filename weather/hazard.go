@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type Hazards struct {
 	HazardDetails  []HazardDetail `json:"hazardDetails,omitempty"`

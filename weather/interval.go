@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type Interval struct {
 	CloudCover        int     `json:"cloudCover"`

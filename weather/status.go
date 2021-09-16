@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type LatestStatus struct {
 	English   LatestStatusKeyword `json:"english,omitempty"`

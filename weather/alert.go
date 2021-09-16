@@ -1,4 +1,4 @@
-package weather
+package azweather
 
 type AlertArea struct {
 	AlertDetails             string        `json:"alertDetails,omitempty"`
